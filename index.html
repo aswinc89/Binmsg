@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BinMsg</title>
+    <style>body {
+        font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', 'sans-serif';
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-size: cover;
+        background-repeat:no-repeat ;
+    }
+    body,main{
+      width: 100vw;
+      min-height: 100vh;
+    }
+    h1 {
+        color: rgb(6, 207, 6);
+        margin-bottom: 20px;
+    }
+    
+    input {
+        width: 25%;
+        padding: 8px;
+        margin: 4px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        font-size: 16px;
+      }
+      
+      input:focus {
+        border-color: rgb(6,207,6);
+        outline: none;
+        cursor: pointer;
+      }
+      .button {
+        background-color: rgb(6, 207, 6); /* Button color */
+        color: white; /* Text color */
+        padding: 15px 30px; /* Button padding */
+        border: none;
+        width: 150px;
+        margin: 5px; /* Remove border */
+        border-radius: 30px; /* Rounded corners */
+        font-size: 16px; /* Font size */
+        cursor: pointer; /* Change cursor on hover */
+        transition: all 0.3s ease; /* Smooth transition */
+        box-shadow: 0 0 5px rgba(5, 246, 109, 0.5); /* Initial glow effect */
+    }
+    
+    /* Glowing effect on hover */
+    .button:hover {
+        box-shadow: 0 0 15px rgb(7, 255, 115), 0 0 20px rgb(0, 255, 85); /* Stronger glow */
+        transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+        #result {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <h1>BINMESSAGE</h1>
+    <br>
+    <label>Enter the Number:</label>
+    <input type="number" id="no" placeholder="Enter Ph.No:" required>
+    <label>Enter the Msg:</label>
+    <input type="text" id="ms" placeholder="Enter Msg:">
+    <button class="button" id="b" onclick=aswi()>Submit</button>
+    <hr>
+    <h1>Binary to String Converter</h1>
+    <input type="text" id="binaryInput" placeholder="Enter binary data:">
+    <button class="button" onclick="convertBinary()">Convert</button>
+    <button id="x" class="button" onclick=aaaa()>Clear</button>
+    <div id="result"></div>
+    <script>function aswi() {
+        const myString = document.getElementById("ms").value;
+        const myStringer=btoa(myString);
+        const phNo = document.getElementById("no").value;
+        const binaryRepresentation = stringToBinary(myStringer);
+         var url="https://wa.me/"+phNo+"?text="+binaryRepresentation;
+         window.open(url, '_blank').focus();
+    }
+    function stringToBinary(str) {
+            return str.split('').map(char => {
+            let binary = char.charCodeAt(0).toString(2);
+            return binary.padStart(8, '0');
+        }).join('');}
+    
+    //bin to str
+    function convertBinary() {
+      const binaryInput = document.getElementById('binaryInput').value;
+      const result = binaryToString(binaryInput);
+      const resultde=atob(result);
+      document.getElementById("result").innerHTML = resultde;
+    }
+    
+    function binaryToString(binaryStr) {
+      // Remove spaces from the input string
+      binaryStr = binaryStr.replace(/\s+/g, '');
+      let result = '';
+      for (let i = 0; i < binaryStr.length; i += 8) {
+          let byte = binaryStr.substring(i, i + 8);
+          // Ensure that we only convert full bytes
+          if (byte.length === 8) {
+              let decimal = parseInt(byte, 2);
+              result += String.fromCharCode(decimal);
+          }
+      }
+      return result;
+    }
+    function aaaa(){
+        document.getElementById("ms").value="";
+        document.getElementById("no").value="";
+        document.getElementById("binaryInput").value="";
+    }
+    </script>
+</body>
+</html>
